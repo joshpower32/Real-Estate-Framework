@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sarah Coleman — Hamilton Real Estate | Maple &amp; Main Realty</title>
+    <meta name="description" content="Sarah Coleman, Realtor® with Maple & Main Realty. Buy and sell homes in Hamilton, Ontario. Browse listings, estimate your mortgage, and get a free home evaluation.">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- ===== Header / Nav ===== -->
+    <header class="site-header" id="top">
+        <div class="wrap nav">
+            <a href="#top" class="brand">
+                <span class="brand-name">Sarah Coleman</span>
+                <span class="brand-sub">Realtor&reg; · Maple &amp; Main</span>
+            </a>
+            <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+            <nav class="nav-links" id="navLinks" aria-label="Primary">
+                <a href="#listings">Listings</a>
+                <a href="#calculator">Mortgage</a>
+                <a href="#about">About</a>
+                <a href="#sell">Sell</a>
+                <a href="#contact">Contact</a>
+            </nav>
+            <a class="btn btn-primary btn-sm header-cta" href="#contact">Book a call</a>
+        </div>
+    </header>
+
+    <!-- ===== Hero ===== -->
+    <section class="hero" id="hero">
+        <div class="hero-overlay"></div>
+        <div class="wrap hero-inner">
+            <p class="eyebrow">Hamilton, Ontario · Maple &amp; Main Realty</p>
+            <h1>Find the place you’ll call home.</h1>
+            <p class="lede">Personal, no-pressure guidance for buying and selling in Hamilton and the surrounding area — backed by local expertise and a decade of results.</p>
+            <div class="hero-actions">
+                <a class="btn btn-primary" href="#listings">Browse listings</a>
+                <a class="btn btn-outline" href="#sell">What’s my home worth?</a>
+            </div>
+            <div class="hero-stats">
+                <div><b>250+</b><span>Homes sold</span></div>
+                <div><b>21</b><span>Avg. days on market</span></div>
+                <div><b>$180M+</b><span>In sales</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Listings ===== -->
+    <section id="listings" class="section">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>Featured listings</h2>
+                <p>A selection of homes currently on the market. Click any property for details.</p>
+            </div>
+            <div class="inventory-controls">
+                <div class="filters" id="typeFilters" role="tablist" aria-label="Filter by property type"></div>
+                <div class="sort-wrap">
+                    <label for="sortSelect">Sort</label>
+                    <select id="sortSelect">
+                        <option value="featured">Featured</option>
+                        <option value="price-asc">Price: Low to High</option>
+                        <option value="price-desc">Price: High to Low</option>
+                        <option value="beds-desc">Most bedrooms</option>
+                        <option value="sqft-desc">Largest</option>
+                    </select>
+                </div>
+            </div>
+            <div class="listing-grid" id="listingGrid"></div>
+        </div>
+    </section>
+
+    <!-- ===== Mortgage calculator ===== -->
+    <section id="calculator" class="section section-dark">
+        <div class="wrap finance-grid">
+            <div class="finance-copy">
+                <h2>Estimate your mortgage</h2>
+                <p>See your approximate monthly payment. Adjust the price, down payment, amortization, and rate — then reach out to get pre-approved with a trusted local lender.</p>
+                <a class="btn btn-primary" href="#contact">Talk to Sarah</a>
+            </div>
+            <div class="calc">
+                <div class="calc-row"><label>Home price</label><div class="calc-input">$<input type="number" id="cPrice" value="749900" min="0" step="5000"></div></div>
+                <div class="calc-row"><label>Down payment</label><div class="calc-input">$<input type="number" id="cDown" value="150000" min="0" step="5000"></div></div>
+                <div class="calc-row"><label>Amortization <span id="cTermLabel">25 years</span></label><input type="range" id="cTerm" min="5" max="30" step="5" value="25"></div>
+                <div class="calc-row"><label>Interest rate <span id="cRateLabel">5.4%</span></label><input type="range" id="cRate" min="0" max="12" step="0.1" value="5.4"></div>
+                <div class="calc-result">
+                    <span>Estimated monthly</span>
+                    <strong id="cMonthly">$0</strong>
+                </div>
+                <p class="calc-note">Estimate only — taxes, insurance &amp; fees excluded. Speak to a lender for exact figures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== About the agent ===== -->
+    <section id="about" class="section">
+        <div class="wrap about-grid">
+            <div class="about-portrait" id="aboutPortrait" aria-hidden="true"></div>
+            <div class="about-copy">
+                <p class="eyebrow">Meet your agent</p>
+                <h2>Hi, I’m Sarah Coleman.</h2>
+                <p>For over ten years I’ve helped families across Hamilton find the right home and sell for the best price. I believe real estate should feel personal, honest, and genuinely low-pressure — you’ll always know exactly where you stand.</p>
+                <p>Whether you’re a first-time buyer, growing family, or ready to downsize, I’ll guide you through every step with local knowledge and care.</p>
+                <div class="about-badges">
+                    <span>Top 1% Hamilton agent</span><span>Certified Negotiation Expert</span><span>First-time buyer specialist</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Sell / home valuation ===== -->
+    <section id="sell" class="section section-tint">
+        <div class="wrap sell-grid">
+            <div class="sell-copy">
+                <h2>What’s your home worth?</h2>
+                <p>Thinking of selling? Get a free, no-obligation home evaluation based on current market data and recent comparable sales in your neighbourhood.</p>
+                <ul class="sell-points">
+                    <li>Accurate, data-driven pricing</li>
+                    <li>A tailored marketing plan</li>
+                    <li>No pressure, no obligation</li>
+                </ul>
+            </div>
+            <form class="valuation-form" id="valuationForm">
+                <h3>Free home evaluation</h3>
+                <div class="field"><label>Property address<input name="address" required placeholder="123 Maple Ave, Hamilton"></label></div>
+                <div class="field-row">
+                    <div class="field"><label>Name<input name="name" required></label></div>
+                    <div class="field"><label>Email<input type="email" name="email" required></label></div>
+                </div>
+                <div class="field"><label>Phone<input type="tel" name="phone"></label></div>
+                <button type="submit" class="btn btn-primary btn-block">Get my free evaluation</button>
+                <p class="fineprint" id="valNote">Demo form — submissions aren’t sent yet. See the README to wire it to email or Firebase.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== Testimonials ===== -->
+    <section class="section">
+        <div class="wrap">
+            <div class="section-head">
+                <h2>What clients say</h2>
+                <p>A few words from families I’ve had the pleasure of helping.</p>
+            </div>
+            <div class="reviews-grid">
+                <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div><blockquote>“Sarah sold our home in four days, over asking. She made the whole thing painless.”</blockquote><figcaption>— The Nguyen Family, Westdale</figcaption></figure>
+                <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div><blockquote>“As first-time buyers we were nervous, but Sarah explained everything and found us the one.”</blockquote><figcaption>— Jordan &amp; Casey, Stinson</figcaption></figure>
+                <figure class="review"><div class="stars" aria-label="5 out of 5">★★★★★</div><blockquote>“Honest, responsive, and a fierce negotiator. We’ve recommended her to all our friends.”</blockquote><figcaption>— Priya M., Ancaster</figcaption></figure>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== Contact / book a showing ===== -->
+    <section id="contact" class="section section-dark">
+        <div class="wrap contact-grid">
+            <div class="contact-info">
+                <h2>Let’s find your next home</h2>
+                <p>Book a showing, ask about a listing, or just have a question — I’d love to help. I’ll get back to you within one business day.</p>
+                <ul class="contact-list">
+                    <li><b>Phone</b><a href="tel:+19055550144">(905) 555-0144</a></li>
+                    <li><b>Email</b><a href="mailto:sarah@mapleandmain.example">sarah@mapleandmain.example</a></li>
+                    <li><b>Office</b>Maple &amp; Main Realty, 88 James St N, Hamilton</li>
+                    <li><b>Hours</b>Available 7 days a week</li>
+                </ul>
+            </div>
+            <form class="contact-form" id="contactForm">
+                <div class="field-row">
+                    <div class="field"><label>Name<input name="name" required></label></div>
+                    <div class="field"><label>Phone<input type="tel" name="phone" required></label></div>
+                </div>
+                <div class="field"><label>Email<input type="email" name="email" required></label></div>
+                <div class="field"><label>Property of interest<input name="property" id="contactProperty" placeholder="Any — just browsing"></label></div>
+                <div class="field"><label>Message<textarea name="message" rows="3" placeholder="I’d like to book a showing for…"></textarea></label></div>
+                <button type="submit" class="btn btn-primary btn-block">Send message</button>
+                <p class="fineprint" id="contactNote">Demo form — submissions aren’t sent yet. See the README to wire it to email or Firebase.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- ===== Footer ===== -->
+    <footer class="site-footer">
+        <div class="wrap footer-grid">
+            <div>
+                <a href="#top" class="brand brand--footer"><span class="brand-name">Sarah Coleman</span><span class="brand-sub">Realtor&reg; · Maple &amp; Main</span></a>
+                <p class="muted">Helping you buy &amp; sell<br>across Hamilton, Ontario.</p>
+            </div>
+            <div><h4>Explore</h4><p class="muted"><a href="#listings">Listings</a><br><a href="#calculator">Mortgage calculator</a><br><a href="#sell">Free home evaluation</a></p></div>
+            <div><h4>Contact</h4><p class="muted"><a href="tel:+19055550144">(905) 555-0144</a><br><a href="mailto:sarah@mapleandmain.example">sarah@mapleandmain.example</a></p></div>
+        </div>
+        <div class="wrap footer-bottom">
+            <small>&copy; <span id="year"></span> Sarah Coleman, Maple &amp; Main Realty — Demo template by <a href="#">Your Studio</a>. Not affiliated with any real brokerage. Placeholder photography via <a href="https://www.pexels.com" target="_blank" rel="noopener">Pexels</a>.</small>
+        </div>
+    </footer>
+
+    <!-- ===== Property detail modal ===== -->
+    <div class="modal" id="propModal" aria-hidden="true">
+        <div class="modal-card">
+            <button class="icon-btn modal-close" id="propClose" aria-label="Close">&times;</button>
+            <div id="propModalBody"></div>
+        </div>
+    </div>
+
+    <!-- ===== Toast ===== -->
+    <div class="toast" id="toast" hidden></div>
+
+    <script src="app.js"></script>
+</body>
+</html>

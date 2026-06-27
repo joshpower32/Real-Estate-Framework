@@ -1,0 +1,227 @@
+/* =====================================================================
+   Sarah Coleman Real Estate — Real Estate Agent framework
+   ---------------------------------------------------------------------
+   Re-skin of the shared design system, themed upscale navy + gold with
+   serif headings. Rebrand via the :root tokens, copy, and the LISTINGS
+   array in app.js.
+   ===================================================================== */
+:root {
+    --bg: #f8f6f2;
+    --surface: #ffffff;
+    --tint: #efeae1;
+    --dark: #1b2740;           /* navy: hero / dark sections / footer */
+    --ink: #1f2433;
+    --muted: #6b7280;
+    --line: #e6e0d5;
+    --brand: #b8904a;          /* gold accent */
+    --brand-dark: #98743a;
+    --accent: #1b2740;         /* navy secondary */
+
+    --font-head: Georgia, "Times New Roman", serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+    --radius: 12px;
+    --radius-sm: 8px;
+    --shadow-sm: 0 1px 3px rgba(27, 39, 64, .08);
+    --shadow-md: 0 14px 36px rgba(27, 39, 64, .16);
+    --maxw: 1160px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--font-body); line-height: 1.65; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; display: block; }
+a { color: var(--brand-dark); text-decoration: none; }
+a:hover { text-decoration: underline; }
+h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; line-height: 1.16; color: var(--ink); }
+.wrap { max-width: var(--maxw); margin: 0 auto; padding: 0 20px; }
+.muted { color: var(--muted); }
+.eyebrow { text-transform: uppercase; letter-spacing: .18em; font-size: .74rem; color: var(--brand); font-weight: 700; margin: 0 0 .6rem; }
+
+/* ---------- Buttons ---------- */
+.btn { display: inline-block; border: 1px solid transparent; border-radius: var(--radius-sm); padding: 13px 28px; font: inherit; font-weight: 600; cursor: pointer; transition: transform .12s ease, background .15s ease, box-shadow .15s ease; text-align: center; letter-spacing: .01em; }
+.btn:hover { text-decoration: none; transform: translateY(-1px); }
+.btn-primary { background: var(--brand); color: #fff; }
+.btn-primary:hover { background: var(--brand-dark); box-shadow: var(--shadow-md); }
+.btn-outline { background: transparent; color: #fff; border-color: rgba(255,255,255,.6); }
+.btn-outline:hover { background: #fff; color: var(--ink); border-color: #fff; }
+.btn-ghost { background: var(--tint); color: var(--ink); }
+.btn-ghost:hover { background: #e7e1d6; }
+.btn-block { width: 100%; }
+.btn-sm { padding: 10px 18px; font-size: .9rem; }
+.icon-btn { background: none; border: none; font-size: 1.7rem; line-height: 1; cursor: pointer; color: var(--muted); padding: 4px; }
+.icon-btn:hover { color: var(--ink); }
+
+/* ---------- Header / nav ---------- */
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(248,246,242,.96); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); }
+.nav { display: flex; align-items: center; gap: 18px; height: 72px; }
+.brand { display: flex; flex-direction: column; color: var(--ink); line-height: 1.1; }
+.brand:hover { text-decoration: none; }
+.brand-name { font-family: var(--font-head); font-weight: 600; font-size: 1.3rem; }
+.brand-sub { font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; color: var(--brand); font-weight: 700; }
+.nav-links { display: flex; gap: 24px; margin-left: auto; }
+.nav-links a { color: var(--ink); font-weight: 500; font-size: .94rem; }
+.nav-links a:hover { color: var(--brand-dark); text-decoration: none; }
+.header-cta { margin-left: 2px; }
+.nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--ink); margin-left: auto; }
+
+/* ---------- Hero ---------- */
+.hero { position: relative; color: #fff; padding: 104px 0 88px; background-size: cover; background-position: center; background-color: var(--dark); }
+.hero-overlay { position: absolute; inset: 0; background: linear-gradient(100deg, rgba(20,28,48,.9) 0%, rgba(20,28,48,.6) 55%, rgba(20,28,48,.32) 100%); }
+.hero-inner { position: relative; max-width: 660px; }
+.hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); margin: 0 0 .6rem; color: #fff; }
+.hero .eyebrow { color: var(--brand); }
+.lede { font-size: 1.18rem; color: #e9e6df; margin: 0 0 1.7rem; }
+.hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.hero-stats { display: flex; gap: 36px; margin-top: 2.3rem; }
+.hero-stats b { display: block; font-family: var(--font-head); font-size: 1.9rem; color: #fff; }
+.hero-stats span { color: #c2c6cf; font-size: .85rem; }
+
+/* ---------- Sections ---------- */
+.section { padding: 72px 0; }
+.section-tint { background: var(--tint); }
+.section-dark { background: var(--dark); color: #fff; }
+.section-head { text-align: center; max-width: 580px; margin: 0 auto 36px; }
+.section-head h2 { font-size: 2.2rem; margin: 0 0 .35rem; }
+.section-head p { color: var(--muted); margin: 0; }
+
+/* ---------- Listing controls ---------- */
+.inventory-controls { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 26px; }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filter-chip { border: 1px solid var(--line); background: var(--surface); color: var(--ink); border-radius: 999px; padding: 8px 16px; font: inherit; font-size: .9rem; cursor: pointer; transition: all .15s ease; }
+.filter-chip:hover { border-color: var(--brand); }
+.filter-chip.active { background: var(--brand); color: #fff; border-color: var(--brand); font-weight: 600; }
+.sort-wrap { display: flex; align-items: center; gap: 8px; font-size: .9rem; color: var(--muted); }
+.sort-wrap select { padding: 8px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); font: inherit; background: var(--surface); cursor: pointer; }
+
+/* ---------- Listing grid ---------- */
+.listing-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 24px; }
+.listing-card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; cursor: pointer; transition: transform .15s ease, box-shadow .15s ease; }
+.listing-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+.listing-media { aspect-ratio: 16 / 11; position: relative; background: var(--tint); }
+.listing-media svg, .listing-media img { width: 100%; height: 100%; object-fit: cover; }
+.l-badge { position: absolute; top: 12px; left: 12px; background: var(--brand); color: #fff; font-size: .72rem; font-weight: 700; padding: 5px 10px; border-radius: 5px; text-transform: uppercase; letter-spacing: .04em; }
+.l-badge.alt { background: #2e7d52; }
+.l-badge.sold { background: #b1313a; }
+.listing-body { padding: 16px 17px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.l-price { color: var(--ink); font-weight: 700; font-size: 1.45rem; font-family: var(--font-head); }
+.l-address { font-weight: 600; font-size: .98rem; }
+.l-area { color: var(--muted); font-size: .86rem; }
+.l-specs { display: flex; gap: 16px; color: var(--muted); font-size: .88rem; margin-top: auto; padding-top: 8px; border-top: 1px solid var(--line); }
+.l-specs span { display: inline-flex; align-items: center; gap: 5px; }
+
+/* ---------- Mortgage calculator (shared with car finance look) ---------- */
+.finance-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.finance-copy h2 { font-size: 2.2rem; margin: 0 0 .6rem; color: #fff; }
+.finance-copy p { color: #c9cdd5; margin: 0 0 1.4rem; }
+.calc { background: var(--surface); color: var(--ink); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow-md); }
+.calc-row { margin-bottom: 16px; }
+.calc-row label { display: flex; justify-content: space-between; font-size: .86rem; font-weight: 700; margin-bottom: 6px; }
+.calc-row label span { color: var(--brand-dark); }
+.calc-input { display: flex; align-items: center; gap: 4px; border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 0 12px; background: var(--bg); font-weight: 700; }
+.calc-input input { border: none; background: none; padding: 11px 0; font: inherit; font-weight: 700; width: 100%; outline: none; }
+.calc-row input[type=range] { width: 100%; accent-color: var(--brand); }
+.calc-result { display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--dark); color: #fff; border-radius: var(--radius-sm); margin-top: 6px; }
+.calc-result strong { font-family: var(--font-head); font-size: 2rem; color: #fff; }
+.calc-note { font-size: .76rem; color: var(--muted); margin: 10px 0 0; text-align: center; }
+
+/* ---------- About agent ---------- */
+.about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 44px; align-items: center; }
+.about-portrait { aspect-ratio: 4 / 5; border-radius: var(--radius); background:
+    radial-gradient(circle at 35% 30%, #e7dcc6, transparent 60%),
+    radial-gradient(circle at 70% 75%, #d7dde6, transparent 55%), var(--tint);
+    border: 1px solid var(--line); box-shadow: var(--shadow-md); background-size: cover; background-position: center; overflow: hidden; }
+.about-copy h2 { font-size: 2.2rem; margin: 0 0 .6rem; }
+.about-copy p { color: #444b5a; margin: 0 0 1rem; }
+.about-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.about-badges span { background: var(--surface); border: 1px solid var(--line); border-radius: 999px; padding: 7px 14px; font-size: .84rem; font-weight: 600; }
+
+/* ---------- Sell / valuation ---------- */
+.sell-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items: center; }
+.sell-copy h2 { font-size: 2.2rem; margin: 0 0 .6rem; }
+.sell-copy p { color: var(--muted); margin: 0 0 1rem; }
+.sell-points { list-style: none; padding: 0; margin: 0; }
+.sell-points li { padding: 7px 0 7px 28px; position: relative; }
+.sell-points li::before { content: "✓"; position: absolute; left: 0; color: var(--brand); font-weight: 800; }
+.valuation-form { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-md); }
+.valuation-form h3 { margin: 0 0 16px; font-size: 1.3rem; }
+
+/* ---------- Reviews ---------- */
+.reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.review { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; margin: 0; box-shadow: var(--shadow-sm); }
+.stars { color: var(--brand); letter-spacing: 2px; margin-bottom: 10px; }
+.review blockquote { margin: 0 0 12px; font-size: 1.02rem; line-height: 1.55; }
+.review figcaption { color: var(--muted); font-weight: 600; font-size: .9rem; }
+
+/* ---------- Contact ---------- */
+.contact-grid { display: grid; grid-template-columns: .9fr 1.1fr; gap: 44px; align-items: start; }
+.contact-info h2 { font-size: 2.2rem; margin: 0 0 .5rem; color: #fff; }
+.contact-info p { color: #c9cdd5; }
+.contact-list { list-style: none; padding: 0; margin: 22px 0 0; }
+.contact-list li { padding: 12px 0; border-top: 1px solid rgba(255,255,255,.14); display: flex; flex-direction: column; }
+.contact-list b { font-size: .76rem; text-transform: uppercase; letter-spacing: .08em; color: var(--brand); margin-bottom: 2px; }
+.contact-list a { color: #fff; }
+.contact-form, .field { } /* forms share field styles below */
+.contact-form { background: var(--surface); border-radius: var(--radius); padding: 26px; box-shadow: var(--shadow-md); }
+.field { margin-bottom: 14px; }
+.field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.field label { display: block; font-size: .82rem; font-weight: 700; color: var(--ink); }
+.field input, .field textarea { width: 100%; margin-top: 5px; padding: 11px 12px; border: 1px solid var(--line); border-radius: var(--radius-sm); font: inherit; background: var(--bg); color: var(--ink); }
+.field input:focus, .field textarea:focus { outline: 2px solid var(--brand); border-color: var(--brand); }
+.fineprint { font-size: .78rem; color: var(--muted); margin: 12px 0 0; text-align: center; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--dark); color: #e4e7ec; }
+.footer-grid { display: grid; grid-template-columns: 1.4fr 1fr 1fr; gap: 28px; padding: 52px 20px 30px; }
+.site-footer h4 { color: #fff; margin: 0 0 .5rem; }
+.site-footer .muted { color: #aab0bb; }
+.site-footer a { color: #e2c79a; }
+.brand--footer .brand-name { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,.12); padding: 16px 20px; }
+.footer-bottom small { color: #aab0bb; }
+
+/* ---------- Property modal ---------- */
+.modal { position: fixed; inset: 0; z-index: 120; background: rgba(20,28,48,.62); display: none; align-items: flex-start; justify-content: center; padding: 28px 16px; overflow-y: auto; }
+.modal.open { display: flex; }
+.modal-card { position: relative; background: var(--surface); border-radius: var(--radius); width: min(700px, 100%); box-shadow: var(--shadow-md); overflow: hidden; }
+.modal-close { position: absolute; top: 8px; right: 12px; z-index: 2; color: #fff; text-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.pm-media { aspect-ratio: 16 / 9; background: var(--tint); }
+.pm-media img, .pm-media svg { width: 100%; height: 100%; object-fit: cover; }
+.pm-body { padding: 22px 24px 26px; }
+.pm-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 14px; flex-wrap: wrap; }
+.pm-price { color: var(--ink); font-family: var(--font-head); font-weight: 700; font-size: 1.8rem; }
+.pm-addr { font-weight: 600; }
+.pm-area { color: var(--muted); font-size: .9rem; }
+.pm-specs { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px 18px; margin: 18px 0; }
+.pm-spec { display: flex; flex-direction: column; border-left: 3px solid var(--brand); padding-left: 10px; }
+.pm-spec b { font-size: 1.1rem; font-family: var(--font-head); }
+.pm-spec span { color: var(--muted); font-size: .82rem; }
+.pm-desc { color: #444b5a; margin: 0 0 16px; }
+.pm-features { list-style: none; padding: 0; margin: 0 0 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 6px 16px; }
+.pm-features li { padding-left: 20px; position: relative; font-size: .92rem; }
+.pm-features li::before { content: "✓"; position: absolute; left: 0; color: var(--brand); font-weight: 800; }
+.pm-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ---------- Toast ---------- */
+.toast { position: fixed; left: 50%; bottom: 26px; transform: translateX(-50%) translateY(20px); background: var(--ink); color: #fff; padding: 12px 22px; border-radius: var(--radius-sm); font-size: .93rem; z-index: 200; opacity: 0; transition: opacity .2s ease, transform .2s ease; box-shadow: var(--shadow-md); }
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+    .nav-toggle { display: block; }
+    .header-cta { display: none; }
+    .nav-links { position: absolute; top: 72px; left: 0; right: 0; flex-direction: column; gap: 0; background: var(--surface); border-bottom: 1px solid var(--line); margin: 0; padding: 6px 0; transform: scaleY(0); transform-origin: top; transition: transform .18s ease; box-shadow: var(--shadow-md); }
+    .nav-links.open { transform: scaleY(1); }
+    .nav-links a { padding: 13px 20px; border-top: 1px solid var(--line); }
+    .finance-grid, .about-grid, .sell-grid, .contact-grid { grid-template-columns: 1fr; gap: 28px; }
+    .about-portrait { max-width: 340px; order: -1; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: 1fr; gap: 22px; }
+    .hero-stats { gap: 24px; }
+}
+@media (max-width: 480px) {
+    .field-row { grid-template-columns: 1fr; }
+    .pm-specs { grid-template-columns: 1fr 1fr; }
+    .pm-features { grid-template-columns: 1fr; }
+    .inventory-controls { flex-direction: column; align-items: stretch; }
+}
