@@ -51,3 +51,14 @@ python3 -m http.server 5550   # then open http://localhost:5550
 - Demo only — the footer notes it's not affiliated with any real brokerage; update the
   brokerage, license #, and MLS disclaimers for a live agent.
 - Hosting upgrade path for paying clients: Netlify / Cloudflare Pages + custom domain.
+
+## Selling this site to a client (lead delivery)
+
+Both forms (free home evaluation + contact/showing) are wired to **Web3Forms** so leads email the client automatically.
+
+1. Get a FREE key at [web3forms.com](https://web3forms.com) using the **client's email**.
+2. Paste it into `CONFIG.web3formsKey` in `app.js`.
+3. Set `CONFIG.contactEmail` to the client's email (fallback + error message).
+4. Test both forms from the live site and confirm the `🔔 NEW LEAD` emails arrive.
+
+Free tier = 250 submissions/month per key. Both forms share one key.

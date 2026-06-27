@@ -14,6 +14,12 @@ const CONFIG = {
   pexelsKey: "4SuTxTJkprUsJAP1CZoSkd412wKx4EuXt7xfK5HzZf9DreiCe8Wv0twm",
   heroQuery: "luxury house exterior",
   agentPortraitQuery: "real estate agent woman portrait",
+  // === LEAD DELIVERY (set before selling) — free key at https://web3forms.com
+  // Enter the client's email, paste the key here. Until set, forms open the
+  // visitor's email app as a fallback so no lead is lost.
+  web3formsKey: "YOUR_WEB3FORMS_ACCESS_KEY",
+  contactEmail: "sarah@mapleandmain.example",
+  businessName: "Maple & Main Realty",
 };
 
 // id, price, address, area, type, beds, baths, sqft, year, garage, lot, badge, features, query
@@ -196,20 +202,46 @@ function updateCalc() {
 }
 ["cPrice", "cDown", "cTerm", "cRate"].forEach((id) => $(id).addEventListener("input", updateCalc));
 
-// --- Forms --------------------------------------------------------------
+// --- Forms (real delivery via Web3Forms) --------------------------------
+const KEY_PLACEHOLDER = "YOUR_WEB3FORMS_ACCESS_KEY";
+async function submitLead(form, { noteEl, label, success }) {
+  const fd = new FormData(form);
+  const firstName = String(fd.get("name") || "there").split(" ")[0];
+  const note = $(noteEl);
+  const btn = form.querySelector('button[type="submit"]');
+
+  if (!CONFIG.web3formsKey || CONFIG.web3formsKey === KEY_PLACEHOLDER) {
+    const subject = encodeURIComponent(`${label} — ${fd.get("name") || ""}`);
+    const body = encodeURIComponent([...fd.entries()].filter(([k]) => k !== "botcheck").map(([k, v]) => `${k}: ${v}`).join("\n"));
+    window.location.href = `mailto:${CONFIG.contactEmail}?subject=${subject}&body=${body}`;
+    toast("Opening your email app to send your request…");
+    return;
+  }
+
+  fd.append("access_key", CONFIG.web3formsKey);
+  fd.append("subject", `🔔 NEW LEAD — ${label} from ${fd.get("name") || "website"}`);
+  fd.append("from_name", CONFIG.businessName);
+  btn.disabled = true; const orig = btn.textContent; btn.textContent = "Sending…";
+  try {
+    const res = await fetch("https://api.web3forms.com/submit", { method: "POST", headers: { Accept: "application/json" }, body: fd });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      form.reset();
+      toast(success(firstName));
+      if (note) note.textContent = "Sent ✓ — you’ll hear back by email shortly.";
+    } else { throw new Error(data.message || "Send failed"); }
+  } catch (_) {
+    toast(`Couldn’t send — please email ${CONFIG.contactEmail}.`);
+    if (note) note.textContent = `Something went wrong. Please email ${CONFIG.contactEmail} directly.`;
+  } finally { btn.disabled = false; btn.textContent = orig; }
+}
 $("valuationForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const name = new FormData(e.target).get("name") || "";
-  e.target.reset();
-  toast(`Thanks ${String(name).split(" ")[0]} — your free evaluation is on the way!`);
-  $("valNote").textContent = "Demo: captured locally. Wire to email/Firebase for real delivery (see README).";
+  submitLead(e.target, { noteEl: "valNote", label: "Home evaluation request", success: (n) => `Thanks ${n} — your free evaluation is on the way!` });
 });
 $("contactForm").addEventListener("submit", (e) => {
   e.preventDefault();
-  const name = new FormData(e.target).get("name") || "";
-  e.target.reset();
-  toast(`Thanks ${String(name).split(" ")[0]} — I’ll be in touch within one business day!`);
-  $("contactNote").textContent = "Demo: captured locally. Wire to email/Firebase for real delivery (see README).";
+  submitLead(e.target, { noteEl: "contactNote", label: "Showing / contact request", success: (n) => `Thanks ${n} — I’ll be in touch within one business day!` });
 });
 
 // --- Mobile nav + misc --------------------------------------------------

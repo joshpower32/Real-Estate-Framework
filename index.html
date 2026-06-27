@@ -124,6 +124,7 @@
                 </ul>
             </div>
             <form class="valuation-form" id="valuationForm">
+                <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none !important" aria-hidden="true">
                 <h3>Free home evaluation</h3>
                 <div class="field"><label>Property address<input name="address" required placeholder="123 Maple Ave, Hamilton"></label></div>
                 <div class="field-row">
@@ -132,7 +133,7 @@
                 </div>
                 <div class="field"><label>Phone<input type="tel" name="phone"></label></div>
                 <button type="submit" class="btn btn-primary btn-block">Get my free evaluation</button>
-                <p class="fineprint" id="valNote">Demo form — submissions aren’t sent yet. See the README to wire it to email or Firebase.</p>
+                <p class="fineprint" id="valNote">Your details are only used to reply to you — no spam.</p>
             </form>
         </div>
     </section>
@@ -166,6 +167,7 @@
                 </ul>
             </div>
             <form class="contact-form" id="contactForm">
+                <input type="checkbox" name="botcheck" tabindex="-1" autocomplete="off" style="display:none !important" aria-hidden="true">
                 <div class="field-row">
                     <div class="field"><label>Name<input name="name" required></label></div>
                     <div class="field"><label>Phone<input type="tel" name="phone" required></label></div>
@@ -174,7 +176,7 @@
                 <div class="field"><label>Property of interest<input name="property" id="contactProperty" placeholder="Any — just browsing"></label></div>
                 <div class="field"><label>Message<textarea name="message" rows="3" placeholder="I’d like to book a showing for…"></textarea></label></div>
                 <button type="submit" class="btn btn-primary btn-block">Send message</button>
-                <p class="fineprint" id="contactNote">Demo form — submissions aren’t sent yet. See the README to wire it to email or Firebase.</p>
+                <p class="fineprint" id="contactNote">Your details are only used to reply to you — no spam.</p>
             </form>
         </div>
     </section>
