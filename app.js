@@ -130,17 +130,18 @@ function renderGrid() {
 $("sortSelect").addEventListener("change", (e) => { sortMode = e.target.value; renderGrid(); });
 
 async function hydrateImages() {
-  for (const l of LISTINGS) {
-    if (listImage(l)) continue;
+  // Parallel fetch so all listing photos arrive together, not one-by-one.
+  await Promise.all(LISTINGS.map(async (l) => {
+    if (listImage(l)) return;
     try {
       const photo = await fetchPexels(l.query);
-      if (!photo) continue;
-      imgCache[l.id] = { url: photo.src.large, photographer: photo.photographer };
+      if (!photo) return;
+      imgCache[l.id] = { url: photo.src.medium, photographer: photo.photographer };
       localStorage.setItem(IMG_CACHE_KEY, JSON.stringify(imgCache));
       const el = grid.querySelector(`.listing-media[data-id="${l.id}"]`);
       if (el) { const old = el.querySelector("svg, img"); if (old) old.outerHTML = listMedia(l, 1); }
     } catch (_) { /* keep SVG */ }
-  }
+  }));
 }
 
 // --- Property detail modal ----------------------------------------------
