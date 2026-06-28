@@ -219,6 +219,13 @@ h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; line-height: 1
     .footer-grid { grid-template-columns: 1fr; gap: 22px; }
     .hero-stats { gap: 24px; }
 }
+/* ---------- Footer ---------- */
+.footer { background: var(--bg); border-top: 1px solid var(--line); padding: 40px 0; margin-top: 60px; text-align: center; }
+.footer p { margin: 8px 0; color: var(--muted); font-size: .9rem; }
+.footer-credits { color: var(--muted); font-size: .85rem; }
+.footer-credits a { color: var(--muted); text-decoration: none; }
+.footer-credits a:hover { color: var(--accent); }
+
 @media (max-width: 480px) {
     .field-row { grid-template-columns: 1fr; }
     .pm-specs { grid-template-columns: 1fr 1fr; }
