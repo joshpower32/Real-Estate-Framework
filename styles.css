@@ -71,6 +71,7 @@ h1, h2, h3, h4 { font-family: var(--font-head); font-weight: 600; line-height: 1
 .hero-inner { position: relative; max-width: 660px; }
 .hero h1 { font-size: clamp(2.4rem, 6vw, 4rem); margin: 0 0 .6rem; color: #fff; }
 .hero .eyebrow { color: var(--brand); }
+.hero-for { font-size: .95rem; color: var(--brand); letter-spacing: .04em; margin: 0 0 .8rem; }
 .lede { font-size: 1.18rem; color: #e9e6df; margin: 0 0 1.7rem; }
 .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
 .hero-stats { display: flex; gap: 36px; margin-top: 2.3rem; }
