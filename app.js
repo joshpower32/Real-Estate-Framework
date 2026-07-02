@@ -11,7 +11,6 @@
    ===================================================================== */
 
 const CONFIG = {
-  pexelsKey: "4SuTxTJkprUsJAP1CZoSkd412wKx4EuXt7xfK5HzZf9DreiCe8Wv0twm",
   heroQuery: "luxury house exterior",
   agentPortraitQuery: "real estate agent woman portrait",
   // === LEAD DELIVERY (set before selling) — free key at https://web3forms.com
@@ -38,6 +37,28 @@ const LISTINGS = [
   { id: "p12", price: 1450000, address: "8 Scenic Dr", area: "Mountain Brow, Hamilton", type: "House", beds: 5, baths: 4, sqft: 3800, year: 2021, garage: 3, lot: "60 × 150 ft", badge: "Just Listed", features: ["Escarpment views", "Custom build", "Heated floors", "Triple garage"], query: "luxury modern house" },
 ];
 
+// --- Demo photos: pinned Pexels shots, keyed by each listing's `query` --
+// Direct image URLs load with the page — no API call, no key, no pop-in.
+// To change a photo: browse pexels.com, copy the image address, paste here.
+const PEXELS_PHOTOS = {
+  "house exterior": { u: "https://images.pexels.com/photos/14930288/pexels-photo-14930288.jpeg", p: "Mahmoud Yahyaoui" },
+  "modern condo building": { u: "https://images.pexels.com/photos/1669787/pexels-photo-1669787.jpeg", p: "Sergey Okhrymenko" },
+  "townhouse exterior": { u: "https://images.pexels.com/photos/10628470/pexels-photo-10628470.jpeg", p: "Curtis Adams" },
+  "luxury home exterior": { u: "https://images.pexels.com/photos/19219055/pexels-photo-19219055.jpeg", p: "Trent Staats" },
+  "condo interior living room": { u: "https://images.pexels.com/photos/7168052/pexels-photo-7168052.jpeg", p: "Curtis Adams" },
+  "bungalow house": { u: "https://images.pexels.com/photos/27014934/pexels-photo-27014934.jpeg", p: "Abhiraj Mengade" },
+  "house front porch": { u: "https://images.pexels.com/photos/6937796/pexels-photo-6937796.jpeg", p: "Matt Barnard" },
+  "modern house exterior": { u: "https://images.pexels.com/photos/30580640/pexels-photo-30580640.jpeg", p: "Karolina K" },
+  "apartment building modern": { u: "https://images.pexels.com/photos/33244441/pexels-photo-33244441.jpeg", p: "Jan van der Wolf" },
+  "suburban house": { u: "https://images.pexels.com/photos/16370166/pexels-photo-16370166.jpeg", p: "NITIN CHAUHAN" },
+  "townhouse modern": { u: "https://images.pexels.com/photos/28403269/pexels-photo-28403269.jpeg", p: "Shane Aldendorff" },
+  "luxury modern house": { u: "https://images.pexels.com/photos/323780/pexels-photo-323780.jpeg", p: "Expect Best" },
+  "luxury house exterior": { u: "https://images.pexels.com/photos/8082328/pexels-photo-8082328.jpeg", p: "Max Vakhtbovych" },
+  "real estate agent woman portrait": { u: "https://images.pexels.com/photos/7937216/pexels-photo-7937216.jpeg", p: "Pavel Danilyuk" },
+};
+// Size an image via Pexels CDN params (w = target width in px)
+const px = (u, w) => `${u}?auto=compress&cs=tinysrgb&w=${w}`;
+
 const esc = (s = "") => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const $ = (id) => document.getElementById(id);
 const money = (n) => "$" + Math.round(n).toLocaleString("en-CA");
@@ -56,39 +77,21 @@ function houseSVG(seed = 0) {
   </svg>`;
 }
 
-// --- Pexels image cache ------------------------------------------------
-const IMG_CACHE_KEY = "realestate_imgcache";
-let imgCache = JSON.parse(localStorage.getItem(IMG_CACHE_KEY) || "{}");
-const listImage = (l) => l.image || imgCache[l.id]?.url || null;
+// --- Listing imagery: real photo > pinned Pexels photo > SVG fallback ---
+const listImage = (l, w = 640) =>
+  l.image || (PEXELS_PHOTOS[l.query] ? px(PEXELS_PHOTOS[l.query].u, w) : null);
 
-async function fetchPexels(query, orientation = "landscape") {
-  const res = await fetch(
-    `https://api.pexels.com/v1/search?query=${encodeURIComponent(query)}&per_page=1&orientation=${orientation}`,
-    { headers: { Authorization: CONFIG.pexelsKey } });
-  if (!res.ok) return null;
-  return (await res.json()).photos?.[0] || null;
-}
 function listMedia(l, seed) {
   const url = listImage(l);
-  const credit = imgCache[l.id]?.photographer;
-  if (url) return `<img src="${esc(url)}" alt="${esc(l.address)}"${credit ? ` title="Photo: ${esc(credit)} / Pexels"` : ""} loading="lazy">`;
+  const credit = !l.image && PEXELS_PHOTOS[l.query]?.p;
+  if (url) return `<img src="${esc(url)}" alt="${esc(l.address)}"${credit ? ` title="Photo: ${esc(credit)} / Pexels"` : ""} loading="lazy" onerror="this.outerHTML = houseSVG(${seed})">`;
   return houseSVG(seed);
 }
 
 // --- Hero + agent portrait backgrounds ---------------------------------
-async function loadBg(elId, cacheKey, query, srcPick = (p) => p.src.landscape) {
-  const el = $(elId);
-  const cached = imgCache[cacheKey]?.url;
-  if (cached) { el.style.backgroundImage = `url("${cached}")`; return; }
-  try {
-    const photo = await fetchPexels(query, cacheKey === "__agent" ? "portrait" : "landscape");
-    if (photo) {
-      const url = srcPick(photo);
-      imgCache[cacheKey] = { url, photographer: photo.photographer };
-      localStorage.setItem(IMG_CACHE_KEY, JSON.stringify(imgCache));
-      el.style.backgroundImage = `url("${url}")`;
-    }
-  } catch (_) { /* fallback stays */ }
+function loadBg(elId, query, w = 1600) {
+  const ph = PEXELS_PHOTOS[query];
+  if (ph) $(elId).style.backgroundImage = `url("${px(ph.u, w)}")`;
 }
 
 // --- Listings: filter + sort + render ----------------------------------
@@ -134,21 +137,6 @@ function renderGrid() {
   });
 }
 $("sortSelect").addEventListener("change", (e) => { sortMode = e.target.value; renderGrid(); });
-
-async function hydrateImages() {
-  // Parallel fetch so all listing photos arrive together, not one-by-one.
-  await Promise.all(LISTINGS.map(async (l) => {
-    if (listImage(l)) return;
-    try {
-      const photo = await fetchPexels(l.query);
-      if (!photo) return;
-      imgCache[l.id] = { url: photo.src.medium, photographer: photo.photographer };
-      localStorage.setItem(IMG_CACHE_KEY, JSON.stringify(imgCache));
-      const el = grid.querySelector(`.listing-media[data-id="${l.id}"]`);
-      if (el) { const old = el.querySelector("svg, img"); if (old) old.outerHTML = listMedia(l, 1); }
-    } catch (_) { /* keep SVG */ }
-  }));
-}
 
 // --- Property detail modal ----------------------------------------------
 const modal = $("propModal");
@@ -262,6 +250,5 @@ $("year").textContent = new Date().getFullYear();
 renderFilters();
 renderGrid();
 updateCalc();
-loadBg("hero", "__hero", CONFIG.heroQuery);
-loadBg("aboutPortrait", "__agent", CONFIG.agentPortraitQuery, (p) => p.src.large);
-hydrateImages();
+loadBg("hero", CONFIG.heroQuery);
+loadBg("aboutPortrait", CONFIG.agentPortraitQuery, 800);

@@ -46,8 +46,10 @@ python3 -m http.server 5550   # then open http://localhost:5550
 
 ## Notes
 
-- Pexels photos are demo placeholders (free key, same as the other frameworks), cached in
-  `localStorage`. Swap for the client's real photos when sold.
+- Demo photos are pinned Pexels images — direct URLs in the `PEXELS_PHOTOS` map in
+  `app.js`, so they load instantly with no API key or runtime fetching. To change a
+  photo, paste a new pexels.com image address into the map; swap in the client's real
+  photos (an `image:` path per listing) when sold.
 - Demo only — the footer notes it's not affiliated with any real brokerage; update the
   brokerage, license #, and MLS disclaimers for a live agent.
 - Hosting upgrade path for paying clients: Netlify / Cloudflare Pages + custom domain.
