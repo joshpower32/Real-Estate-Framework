@@ -236,6 +236,12 @@ $("contactForm").addEventListener("submit", (e) => {
 const navToggle = $("navToggle"), navLinks = $("navLinks");
 navToggle.addEventListener("click", () => { const o = navLinks.classList.toggle("open"); navToggle.setAttribute("aria-expanded", o); });
 navLinks.querySelectorAll("a").forEach((a) => a.addEventListener("click", () => navLinks.classList.remove("open")));
+document.addEventListener("click", (e) => {
+  if (navLinks.classList.contains("open") && !navLinks.contains(e.target) && !navToggle.contains(e.target)) {
+    navLinks.classList.remove("open");
+    navToggle.setAttribute("aria-expanded", "false");
+  }
+});
 
 let toastTimer;
 function toast(msg) {
